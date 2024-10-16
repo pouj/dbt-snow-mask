@@ -100,7 +100,7 @@
                     {% if masking_policy_name is not none %}
                         {{ log(modules.datetime.datetime.now().strftime("%H:%M:%S") ~ " | " ~ operation_type ~ "ing masking policy to model  : " ~ database|upper ~ '.' ~ schema|upper ~ '.' ~ masking_policy_name|upper ~ " on " ~ database ~ '.' ~ schema ~ '.' ~ alias ~ '.' ~ column, info=True) }}
                         {% set query %}
-                            alter {{materialization}}  {{database}}.{{schema}}.{{alias}} modify column  {{column}} unset masking policy
+                            alter {{materialization}} if exists {{database}}.{{schema}}.{{alias}} modify column  {{column}} unset masking policy
                         {% endset %}
                         {% do run_query(query) %}
                     {% endif %}
